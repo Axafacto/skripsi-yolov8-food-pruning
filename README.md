@@ -154,7 +154,7 @@ YOLOv8s-Pruned30
 PyTorch (.pt)
        │
        ▼
-ONNX
+      ONNX
        │
        ▼
 TensorFlow Lite (.tflite)
