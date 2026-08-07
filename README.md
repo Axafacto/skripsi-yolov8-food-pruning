@@ -43,6 +43,128 @@ The Android application performs food detection directly on the device and provi
 
 ---
 
+## 🛠️ Tech Stack
+
+<p align="left">
+  <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" />
+  <img src="https://img.shields.io/badge/PyTorch-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white" />
+  <img src="https://img.shields.io/badge/YOLOv8-Ultralytics-blue?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/TensorFlow_Lite-FF6F00?style=for-the-badge&logo=tensorflow&logoColor=white" />
+  <img src="https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white" />
+  <img src="https://img.shields.io/badge/OpenCV-5C3EE8?style=for-the-badge&logo=opencv&logoColor=white" />
+  <img src="https://img.shields.io/badge/Google_Colab-F9AB00?style=for-the-badge&logo=googlecolab&logoColor=black" />
+  <img src="https://img.shields.io/badge/Roboflow-6706CE?style=for-the-badge" />
+</p>
+
+---
+
+## 📦 Environment
+
+The main model training and evaluation experiments were performed using the following environment:
+
+| Component | Version / Specification |
+|-----------|--------------------------|
+| Python | 3.12.13 |
+| PyTorch | 2.11.0+cu128 |
+| Ultralytics | 8.4.73 |
+| CUDA | 12.8 |
+| GPU | NVIDIA Tesla T4 |
+| GPU Memory | 14,913 MiB |
+
+The exact environment may vary depending on the notebook and execution platform.
+
+---
+
+## 📚 Dataset
+
+The model was trained and evaluated using a custom food detection dataset.
+
+- **Total images:** 682
+- **Annotations:** 1,239
+- **Number of classes:** 18
+- **Dataset platform:** Roboflow
+
+The dataset contains 18 commonly found food categories intended for object detection and subsequent nutritional information retrieval.
+
+---
+
+## 🔬 Methodology
+
+The overall optimization workflow consists of the following stages:
+
+```text
+Food Dataset
+     │
+     ▼
+Data Annotation & Preprocessing
+     │
+     ▼
+YOLOv8s Baseline Training
+     │
+     ▼
+Baseline Evaluation
+     │
+     ▼
+C2f → C2f_v2 Architecture Modification
+     │
+     ▼
+Structured Pruning
+(Dependency Graph)
+     │
+     ├── 20% Pruning
+     ├── 30% Pruning
+     └── 50% Pruning
+     │
+     ▼
+Fine-tuning of Pruned Models
+     │
+     ▼
+Model Evaluation & Comparison
+     │
+     ▼
+YOLOv8s-Pruned30 Selection
+     │
+     ▼
+TensorFlow Lite Export
+     │
+     ▼
+Android Deployment
+     │
+     ▼
+Food Detection
+     │
+     ▼
+Nutritional Information
+```
+
+---
+
+## 📱 Android Deployment
+
+The selected **YOLOv8s-Pruned30** model was converted to TensorFlow Lite and integrated into the Android application.
+
+The Android application performs inference directly on the device without requiring a remote inference server.
+
+The deployment pipeline is:
+
+```text
+YOLOv8s-Pruned30
+       │
+       ▼
+PyTorch (.pt)
+       │
+       ▼
+ONNX
+       │
+       ▼
+TensorFlow Lite (.tflite)
+       │
+       ▼
+Android Application
+```
+
+---
+
 ## 📊 Experimental Results
 
 ### Model Optimization
@@ -97,38 +219,6 @@ The Android implementation does not yet achieve the typical real-time target of 
 
 ---
 
-## 🛠️ Tech Stack
-
-<p align="left">
-  <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" />
-  <img src="https://img.shields.io/badge/PyTorch-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white" />
-  <img src="https://img.shields.io/badge/YOLOv8-Ultralytics-blue?style=for-the-badge" />
-  <img src="https://img.shields.io/badge/TensorFlow_Lite-FF6F00?style=for-the-badge&logo=tensorflow&logoColor=white" />
-  <img src="https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white" />
-  <img src="https://img.shields.io/badge/OpenCV-5C3EE8?style=for-the-badge&logo=opencv&logoColor=white" />
-  <img src="https://img.shields.io/badge/Google_Colab-F9AB00?style=for-the-badge&logo=googlecolab&logoColor=black" />
-  <img src="https://img.shields.io/badge/Roboflow-6706CE?style=for-the-badge" />
-</p>
-
----
-
-## 📦 Environment
-
-The main model training and evaluation experiments were performed using the following environment:
-
-| Component | Version / Specification |
-|-----------|--------------------------|
-| Python | 3.12.13 |
-| PyTorch | 2.11.0+cu128 |
-| Ultralytics | 8.4.73 |
-| CUDA | 12.8 |
-| GPU | NVIDIA Tesla T4 |
-| GPU Memory | 14,913 MiB |
-
-The exact environment may vary depending on the notebook and execution platform.
-
----
-
 ## 📂 Project Structure
 
 ```text
@@ -172,88 +262,6 @@ The `android/` directory contains the Android application source code.
 The application uses the exported TensorFlow Lite model to perform on-device inference and display nutritional information for detected food objects.
 
 Detailed Android setup and build instructions will be provided in the `android/` directory.
-
----
-
-## 📚 Dataset
-
-The model was trained and evaluated using a custom food detection dataset.
-
-- **Total images:** 682
-- **Annotations:** 1,239
-- **Number of classes:** 18
-- **Dataset platform:** Roboflow
-
-The dataset contains 18 commonly found food categories intended for object detection and subsequent nutritional information retrieval.
-
----
-
-## 🔬 Methodology
-The overall optimization workflow consists of the following stages:
-```text
-Food Dataset
-     │
-     ▼
-Data Annotation & Preprocessing
-     │
-     ▼
-YOLOv8s Baseline Training
-     │
-     ▼
-Baseline Evaluation
-     │
-     ▼
-C2f → C2f_v2 Architecture Modification
-     │
-     ▼
-Structured Pruning
-(Dependency Graph)
-     │
-     ├── 20% Pruning
-     ├── 30% Pruning
-     └── 50% Pruning
-     │
-     ▼
-Fine-tuning of Pruned Models
-     │
-     ▼
-Model Evaluation & Comparison
-     │
-     ▼
-YOLOv8s-Pruned30 Selection
-     │
-     ▼
-TensorFlow Lite Export
-     │
-     ▼
-Android Deployment
-     │
-     ▼
-Food Detection
-     │
-     ▼
-Nutritional Information
-```
----
-## 📱 Android Deployment
-The selected **YOLOv8s-Pruned30** model was converted to TensorFlow Lite and integrated into the Android application.
-The Android application performs inference directly on the device without requiring a remote inference server.
-The deployment pipeline is:
-```text
-YOLOv8s-Pruned30
-       │
-       ▼
-PyTorch (.pt)
-       │
-       ▼
-ONNX
-       │
-       ▼
-TensorFlow Lite (.tflite)
-       │
-       ▼
-Android Application
-```
 
 ---
 
