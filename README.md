@@ -20,9 +20,7 @@ This repository contains the implementation of my undergraduate thesis, which fo
 ## 📸 Mobile Application Demo
 
 <p align="center">
-  <img src="docs/demo-1.png" width="45%">
-  
-  <img src="docs/demo-2.png" width="45%">
+  <img src="docs/images/demo-1.png" width="45%">
 </p>
 
 ---
