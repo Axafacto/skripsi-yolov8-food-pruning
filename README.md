@@ -292,8 +292,7 @@ Detailed Android setup and build instructions will be provided in the `android/`
 **Aldy Ardiansyah**
 
 Bachelor's Thesis Project  
-Bachelor of Informatics Engineering  
-Universitas Amikom Yogyakarta
+Bachelor of Computer Science 
 
 GitHub: https://github.com/Axafacto
 
